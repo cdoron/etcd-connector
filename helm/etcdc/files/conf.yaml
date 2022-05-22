@@ -1,0 +1,3 @@
+uuid: {{ .Values.uuid | default "app-uuid-missing" }}
+etcd_hostname: {{ .Values.etcd_hostname | default "etcd_hostname-missing" }}
+etcd_port: {{ .Values.etcd_port | default "etcd_port-missing" }}

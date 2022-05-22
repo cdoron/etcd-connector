@@ -1,0 +1,4 @@
+apiVersion: v1
+description: A Helm chart for installing Etcd Connector in Kubernetes
+name: etcd-connector-chart
+version: "0.0.0"
