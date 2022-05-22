@@ -12,7 +12,7 @@ docker run --rm \
    -o /local/swagger-datacatalog \
    -i /local/fybrik/connectors/api/datacatalog.spec.yaml
 
-cat patch/requirements.txt >> swagger-datacatalog/requirements.txt
+cp patch/requirements.txt swagger-datacatalog/requirements.txt
 cp patch/__main__.py swagger-datacatalog/openapi_server/__main__.py
 cp patch/util.py swagger-datacatalog/openapi_server/util.py
 cp patch/default_controller.py swagger-datacatalog/openapi_server/controllers/default_controller.py
