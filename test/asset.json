@@ -1,0 +1,33 @@
+{
+  "credentials": "credentials",
+  "destinationAssetID": "destinationAssetID",
+  "destinationCatalogID": "destinationCatalogID",
+  "details": {
+    "connection": {
+      "name": "name"
+    },
+    "dataFormat": "dataFormat"
+  },
+  "resourceMetadata": {
+    "columns": [
+      {
+        "name": "name",
+        "tags": {
+          "key": ""
+        }
+      },
+      {
+        "name": "name",
+        "tags": {
+          "key": ""
+        }
+      }
+    ],
+    "geography": "geography",
+    "name": "name",
+    "owner": "owner",
+    "tags": {
+      "key": ""
+    }
+  }
+}

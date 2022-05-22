@@ -1,0 +1,3 @@
+# etcd_connector requirements
+fybrik_python_logging == 0.1.0
+etcd3 == 0.12.0
