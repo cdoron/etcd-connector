@@ -7,20 +7,26 @@ import yaml
 import etcd3
 from fybrik_python_logging import init_logger
 
-etcd_client = None
+username = 'root'
+password = None
+etcd_hostname = None
+etcd_port=2379
+
+def get_client():
+    if username and password:
+        return etcd3.client(etcd_hostname, etcd_port, user=username, password=password)
+    return etcd3.client(etcd_hostname, etcd_port)
 
 def init(config_path, loglevel):
-    global etcd_client
+    global username, password, etcd_hostname, etcd_port
     with open(config_path, 'r') as stream:
         values = yaml.safe_load(stream)
     app_uuid = values.get('uuid', 'etcd-connector')
     username = values.get('etcd_username', None)
     password = values.get('etcd_password', None)
+    etcd_hostname = values.get('etcd_hostname', None)
+    etcd_port = values.get('etcd_port', None)
     init_logger(loglevel, app_uuid, 'etcd-connector')
-    if username and password:
-        etcd_client = etcd3.client(values['etcd_hostname'], values['etcd_port'], user=username, password=password)
-    else:
-        etcd_client = etcd3.client(values['etcd_hostname'], values['etcd_port'])
 
 def _deserialize(data, klass):
     """Deserializes dict, list, str into an object.

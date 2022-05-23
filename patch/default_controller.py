@@ -9,7 +9,7 @@ from openapi_server.models.delete_asset_response import DeleteAssetResponse  # n
 from openapi_server.models.get_asset_request import GetAssetRequest  # noqa: E501
 from openapi_server.models.get_asset_response import GetAssetResponse  # noqa: E501
 from openapi_server import util
-from openapi_server.util import etcd_client
+from openapi_server.util import get_client
 from fybrik_python_logging import logger
 
 
@@ -30,7 +30,9 @@ def create_asset():  # noqa: E501
     if connexion.request.is_json:
         create_asset_request = CreateAssetRequest.from_dict(connexion.request.get_json())  # noqa: E501
         asset_id = create_asset_request.destination_catalog_id + "/" + create_asset_request.destination_asset_id
+        etcd_client = get_client()
         etcd_client.put(asset_id, connexion.request.get_data())
+        etcd_client.close()
         return CreateAssetResponse(asset_id)
     else:
         return 'invalid JSON format', 400
@@ -50,7 +52,9 @@ def delete_asset():  # noqa: E501
     """
     if connexion.request.is_json:
         delete_asset_request = DeleteAssetRequest.from_dict(connexion.request.get_json())  # noqa: E501
+        etcd_client = get_client()
         success = etcd_client.delete(delete_asset_request.asset_id)
+        etcd_client.close()
         if success:
             return DeleteAssetResponse('Deletion Successful')
         else:
@@ -73,7 +77,9 @@ def get_asset_info():  # noqa: E501
     """
     if connexion.request.is_json:
         get_asset_request = GetAssetRequest.from_dict(connexion.request.get_json())  # noqa: E501
+        etcd_client = get_client()
         value, _ = etcd_client.get(get_asset_request.asset_id)
+        etcd_client.close()
         if value:
             return GetAssetResponse.from_dict(json.loads(value))
         else:
