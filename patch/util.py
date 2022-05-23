@@ -14,8 +14,13 @@ def init(config_path, loglevel):
     with open(config_path, 'r') as stream:
         values = yaml.safe_load(stream)
     app_uuid = values.get('uuid', 'etcd-connector')
+    username = values.get('etcd_username', None)
+    password = values.get('etcd_password', None)
     init_logger(loglevel, app_uuid, 'etcd-connector')
-    etcd_client = etcd3.client(values['etcd_hostname'], values['etcd_port'])
+    if username and password:
+        etcd_client = etcd3.client(values['etcd_hostname'], values['etcd_port'], user=username, password=password)
+    else:
+        etcd_client = etcd3.client(values['etcd_hostname'], values['etcd_port'])
 
 def _deserialize(data, klass):
     """Deserializes dict, list, str into an object.
