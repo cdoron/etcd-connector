@@ -5,9 +5,8 @@ WORKDIR /usr/src/app
 
 COPY requirements.txt /usr/src/app/
 
+RUN apk add g++ linux-headers
 RUN pip3 install --no-cache-dir -r requirements.txt
-RUN pip3 uninstall grpcio
-RUN pip3 install grpcio==1.44.0
 
 COPY . /usr/src/app
 
