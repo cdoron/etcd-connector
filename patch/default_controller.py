@@ -81,7 +81,7 @@ def get_asset_info():  # noqa: E501
         value, _ = etcd_client.get(get_asset_request.asset_id)
         etcd_client.close()
         if value:
-            return GetAssetResponse.from_dict(json.loads(value))
+            return json.loads(value)
         else:
             return 'asset_id not found', 404
 
