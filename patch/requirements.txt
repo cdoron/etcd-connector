@@ -10,6 +10,7 @@ python_dateutil >= 2.6.0
 setuptools >= 21.0.0
 Flask == 2.1.0
 grpcio == 1.44.0
+waitress == 2.0.0
 
 # etcd_connector requirements
 fybrik_python_logging == 0.1.0

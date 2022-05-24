@@ -5,6 +5,7 @@ import argparse
 
 from openapi_server import encoder
 from openapi_server.util import init
+from waitress import serve
 
 def main():
     parser = argparse.ArgumentParser(description='ETCD Fybrik Connector')
@@ -25,7 +26,7 @@ def main():
                 arguments={'title': 'Data Catalog Service - Asset Details'},
                 pythonic_params=True)
 
-    app.run(port=args.port)
+    serve(app, port=args.port)
 
 
 if __name__ == '__main__':
